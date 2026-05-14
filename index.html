@@ -3,10 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Science Archive | AI & Information Portfolio</title>
   <meta name="description" content="데이터 기반 문제 해결을 위한 인공지능 모델의 적용 방식과 정보 처리 과정을 분석하는 과학 포트폴리오" />
 
   <style>
+    :root {
+      --bg: #07111f;
+      --panel: rgba(255, 255, 255, 0.08);
+      --card: rgba(255, 255, 255, 0.96);
+      --text: #102033;
+      --muted: #5b677a;
+      --line: #dce4ef;
+      --blue: #38bdf8;
+      --cyan: #22d3ee;
+      --green: #34d399;
+      --purple: #a78bfa;
+      --dark: #0f172a;
+      --soft: #f8fafc;
+      --radius: 24px;
+      --shadow: 0 24px 60px rgba(15, 23, 42, 0.13);
+    }
+
     * {
       box-sizing: border-box;
       scroll-behavior: smooth;
@@ -14,144 +32,224 @@
 
     body {
       margin: 0;
-      font-family: Arial, "Noto Sans KR", sans-serif;
-      color: #1f2937;
-      background: #f8fafc;
-      line-height: 1.7;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", Arial, sans-serif;
+      background: #f5f8fc;
+      color: var(--text);
+      line-height: 1.75;
     }
 
-    header {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 80px 24px;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.25), transparent 30%),
-        radial-gradient(circle at 80% 30%, rgba(16, 185, 129, 0.22), transparent 28%),
-        linear-gradient(135deg, #0f172a, #1e293b 55%, #0f766e);
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .floating-circle {
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 50%;
-      animation: float 8s ease-in-out infinite;
-    }
-
-    .circle-one {
-      top: 12%;
-      left: 8%;
-    }
-
-    .circle-two {
-      bottom: 10%;
-      right: 8%;
-      animation-delay: 2s;
-    }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0) rotate(0deg);
-      }
-      50% {
-        transform: translateY(-24px) rotate(12deg);
-      }
+    a {
+      color: inherit;
     }
 
     .hero {
-      max-width: 1000px;
+      min-height: 100vh;
       position: relative;
-      z-index: 2;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      padding: 90px 24px;
+      background:
+        radial-gradient(circle at 12% 20%, rgba(56, 189, 248, 0.35), transparent 28%),
+        radial-gradient(circle at 82% 28%, rgba(52, 211, 153, 0.25), transparent 30%),
+        radial-gradient(circle at 50% 90%, rgba(167, 139, 250, 0.22), transparent 32%),
+        linear-gradient(135deg, #020617, #0f172a 58%, #064e5b);
+      color: white;
     }
 
-    .tag {
-      display: inline-block;
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0.25));
+    }
+
+    .orb {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.18);
+      animation: float 9s ease-in-out infinite;
+    }
+
+    .orb.one { top: 10%; left: 6%; }
+    .orb.two { bottom: 8%; right: 7%; animation-delay: 2s; }
+    .orb.three { top: 18%; right: 26%; width: 140px; height: 140px; animation-delay: 4s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-28px) rotate(15deg); }
+    }
+
+    .data-line {
+      position: absolute;
+      height: 2px;
+      width: 170px;
+      background: linear-gradient(90deg, transparent, rgba(56,189,248,0.9), transparent);
+      animation: stream 5s linear infinite;
+      opacity: 0.65;
+    }
+
+    .data-line.l1 { top: 24%; left: -180px; }
+    .data-line.l2 { top: 62%; left: -240px; animation-delay: 1.4s; }
+    .data-line.l3 { top: 78%; left: -260px; animation-delay: 2.8s; }
+
+    @keyframes stream {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(100vw + 400px)); }
+    }
+
+    .hero-inner {
+      max-width: 1120px;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
       padding: 8px 14px;
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 999px;
-      font-size: 14px;
-      margin-bottom: 24px;
-      color: #d1fae5;
+      border: 1px solid rgba(255,255,255,0.25);
       background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(8px);
+      border-radius: 999px;
+      color: #d8fbff;
+      font-weight: 700;
+      font-size: 14px;
+      backdrop-filter: blur(10px);
+      margin-bottom: 24px;
     }
 
     h1 {
-      font-size: clamp(38px, 7vw, 78px);
-      line-height: 1.1;
-      margin: 0 0 24px;
-      letter-spacing: -2px;
+      margin: 0;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 1.04;
+      letter-spacing: -0.06em;
     }
 
-    .hero p {
-      max-width: 780px;
+    .hero-lead {
+      margin: 26px 0 34px;
+      color: #dbeafe;
       font-size: 19px;
-      color: #e5e7eb;
-      margin-bottom: 36px;
+      max-width: 760px;
     }
 
-    .hero-buttons {
+    .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
     }
 
-    .button {
-      display: inline-block;
-      padding: 13px 20px;
-      border-radius: 12px;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       text-decoration: none;
-      font-weight: bold;
-      transition: 0.25s;
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-weight: 800;
+      transition: 0.25s ease;
     }
 
-    .button.primary {
+    .btn.primary {
       background: white;
-      color: #0f172a;
+      color: #061526;
     }
 
-    .button.secondary {
-      border: 1px solid rgba(255,255,255,0.35);
+    .btn.ghost {
+      border: 1px solid rgba(255,255,255,0.28);
+      color: white;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.24);
+    }
+
+    .hero-visual {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 30px;
+      padding: 28px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.28);
+    }
+
+    .pipeline-mini {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini-node {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 15px 16px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 18px;
+      color: #e2e8f0;
+    }
+
+    .mini-node strong {
       color: white;
     }
 
-    .button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    .pulse {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 0 rgba(52, 211, 153, 0.7);
+      animation: pulse 1.7s infinite;
+      flex: 0 0 auto;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.8); }
+      70% { box-shadow: 0 0 0 14px rgba(52, 211, 153, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
     }
 
     nav {
       position: sticky;
       top: 0;
-      z-index: 20;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid #e5e7eb;
+      z-index: 50;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
     }
 
-    nav .nav-inner {
-      max-width: 1100px;
+    .nav-inner {
+      max-width: 1180px;
       margin: auto;
-      padding: 14px 22px;
+      padding: 12px 20px;
       display: flex;
-      gap: 16px;
+      gap: 10px;
       overflow-x: auto;
       white-space: nowrap;
     }
 
     nav a {
-      color: #334155;
       text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
-      padding: 8px 10px;
-      border-radius: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      color: #334155;
+      transition: 0.2s;
     }
 
     nav a:hover {
@@ -160,101 +258,213 @@
     }
 
     main {
-      max-width: 1100px;
+      max-width: 1180px;
       margin: auto;
-      padding: 70px 22px;
+      padding: 72px 20px;
     }
 
     .intro {
-      margin-bottom: 70px;
-      padding: 34px;
       background: white;
-      border-radius: 24px;
-      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
-      border: 1px solid #e5e7eb;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 34px;
+      box-shadow: var(--shadow);
+      margin-bottom: 64px;
     }
 
-    .intro h2 {
-      font-size: 32px;
-      margin-top: 0;
-      color: #0f172a;
+    .intro h2,
+    .section-title h2 {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 4vw, 42px);
+      letter-spacing: -0.04em;
+      color: var(--dark);
+    }
+
+    .intro p,
+    .section-title p {
+      color: var(--muted);
+      margin: 0 0 12px;
+      font-size: 16px;
+    }
+
+    .section-title {
+      margin: 0 0 24px;
     }
 
     .section-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 22px;
-      margin-bottom: 80px;
+      grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+      gap: 20px;
+      margin-bottom: 76px;
+    }
+
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
     }
 
     .card {
+      min-height: 240px;
       background: white;
-      border-radius: 22px;
-      padding: 26px;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.06);
-      transition: 0.25s;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 25px;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+      transition: 0.25s ease;
     }
 
     .card::before {
       content: "";
       position: absolute;
-      width: 90px;
-      height: 90px;
-      right: -28px;
-      top: -28px;
+      right: -45px;
+      top: -45px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
-      background: linear-gradient(135deg, rgba(14,165,233,0.18), rgba(16,185,129,0.18));
+      background: linear-gradient(135deg, rgba(56,189,248,0.20), rgba(52,211,153,0.20));
     }
 
     .card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 24px 55px rgba(15, 23, 42, 0.13);
+      transform: translateY(-8px);
+      box-shadow: 0 28px 60px rgba(15, 23, 42, 0.14);
+      border-color: rgba(56,189,248,0.55);
     }
 
-    .card span {
-      font-size: 28px;
+    .icon {
+      font-size: 30px;
+      display: inline-block;
+      margin-bottom: 10px;
     }
 
     .card h3 {
-      margin: 14px 0 10px;
-      font-size: 21px;
-      color: #0f172a;
+      margin: 6px 0 10px;
+      font-size: 20px;
+      color: var(--dark);
+      letter-spacing: -0.02em;
     }
 
     .card p {
-      color: #475569;
+      margin: 0;
+      color: var(--muted);
       font-size: 15px;
     }
 
+    .open-hint {
+      display: inline-flex;
+      margin-top: 18px;
+      color: #0284c7;
+      font-weight: 900;
+      font-size: 13px;
+    }
+
     .detail-section {
-      margin-bottom: 70px;
-      padding: 34px;
+      scroll-margin-top: 90px;
       background: white;
-      border-radius: 24px;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 16px 38px rgba(15, 23, 42, 0.06);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      margin-bottom: 58px;
+      overflow: hidden;
+    }
+
+    .detail-head {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 24px;
     }
 
     .detail-section h2 {
-      margin-top: 0;
-      font-size: 30px;
-      color: #0f172a;
-      border-left: 6px solid #0ea5e9;
-      padding-left: 14px;
+      margin: 0 0 14px;
+      color: var(--dark);
+      font-size: clamp(26px, 4vw, 38px);
+      line-height: 1.2;
+      letter-spacing: -0.04em;
     }
 
     .detail-section p {
-      font-size: 16px;
-      color: #334155;
+      color: #374151;
+      margin: 0 0 12px;
+    }
+
+    .mini-label {
+      color: #0369a1;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .visual {
+      background: linear-gradient(135deg, #eff6ff, #ecfeff, #f0fdf4);
+      border: 1px solid #c7e6ff;
+      border-radius: 22px;
+      padding: 20px;
+      min-height: 190px;
+      display: grid;
+      place-items: center;
+    }
+
+    .visual svg {
+      width: 100%;
+      max-width: 360px;
+      height: auto;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .info-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .info-box h4 {
+      margin: 0 0 10px;
+      color: #0f172a;
+      font-size: 17px;
+    }
+
+    .info-box ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #475569;
+    }
+
+    .info-box li {
+      margin-bottom: 7px;
+    }
+
+    details {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 16px 18px;
+      margin-top: 14px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 900;
+      color: #0f172a;
     }
 
     .keyword-box {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 9px;
       margin-top: 18px;
     }
 
@@ -264,70 +474,279 @@
       background: #ecfeff;
       color: #155e75;
       font-size: 13px;
-      font-weight: bold;
+      font-weight: 900;
     }
 
-    .visual-box {
-      margin-top: 26px;
-      padding: 28px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #f0f9ff, #ecfdf5);
-      border: 1px dashed #38bdf8;
+    .interactive {
+      margin-top: 22px;
+      background: #061526;
+      color: white;
+      border-radius: 24px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .interactive h4 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .interactive p {
+      color: #cbd5e1;
+      margin: 0 0 14px;
+    }
+
+    .control-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 14px 0;
+    }
+
+    button,
+    select,
+    input[type="range"] {
+      font: inherit;
+    }
+
+    .chip-btn {
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border-radius: 999px;
+      padding: 9px 13px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: 0.2s;
+    }
+
+    .chip-btn:hover,
+    .chip-btn.active {
+      background: #38bdf8;
+      color: #061526;
+      transform: translateY(-2px);
+    }
+
+    .select {
+      width: 100%;
+      max-width: 360px;
+      border: 1px solid #b6d7ff;
+      border-radius: 14px;
+      padding: 11px 12px;
+      background: white;
+      color: #0f172a;
+      font-weight: 800;
+    }
+
+    .result-panel {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 18px;
+      padding: 16px;
+      margin-top: 12px;
+      color: #e2e8f0;
+    }
+
+    .meter {
+      height: 16px;
+      width: 100%;
+      background: rgba(255,255,255,0.12);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .meter span {
+      display: block;
+      height: 100%;
+      width: 50%;
+      background: linear-gradient(90deg, #38bdf8, #34d399);
+      border-radius: inherit;
+      transition: 0.25s;
+    }
+
+    .bar-chart {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 16px;
-      text-align: center;
-      font-weight: bold;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .bar {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 12px;
+      align-items: center;
+      color: #dbeafe;
+      font-size: 14px;
+    }
+
+    .bar-track {
+      height: 13px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #60a5fa, #22d3ee, #34d399);
+    }
+
+    .note {
+      font-size: 13px;
+      color: #94a3b8 !important;
+      margin-top: 12px !important;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #e2e8f0;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 11px;
+    }
+
+    .check-item input {
+      width: 18px;
+      height: 18px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .timeline-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #38bdf8, #34d399);
+      display: grid;
+      place-items: center;
+      color: #061526;
+      font-weight: 900;
+    }
+
+    .timeline-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .timeline-card h4 {
+      margin: 0 0 6px;
       color: #0f172a;
     }
 
-    .step {
-      background: white;
-      padding: 18px;
-      border-radius: 16px;
-      border: 1px solid #dbeafe;
+    .timeline-card p {
+      margin: 0;
+      color: #475569;
+    }
+
+    .references {
+      background: #0f172a;
+      color: #cbd5e1;
+      border-radius: 28px;
+      padding: 30px;
+      margin-top: 70px;
+    }
+
+    .references h2 {
+      margin-top: 0;
+      color: white;
+    }
+
+    .references a {
+      color: #7dd3fc;
+      word-break: break-all;
     }
 
     footer {
-      padding: 45px 24px;
+      margin-top: 70px;
+      padding: 46px 20px;
       text-align: center;
-      background: #0f172a;
-      color: #cbd5e1;
+      background: #020617;
+      color: #94a3b8;
     }
 
     footer strong {
       color: white;
     }
 
-    @media (max-width: 700px) {
-      .intro, .detail-section {
+    @media (max-width: 820px) {
+      .hero-inner,
+      .detail-head,
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .detail-section,
+      .intro {
         padding: 24px;
       }
 
-      nav .nav-inner {
-        padding: 12px;
+      .bar {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="floating-circle circle-one"></div>
-    <div class="floating-circle circle-two"></div>
+  <header class="hero">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+    <div class="data-line l1"></div>
+    <div class="data-line l2"></div>
+    <div class="data-line l3"></div>
 
-    <div class="hero">
-      <div class="tag">AI · Information Science · Data-driven Problem Solving</div>
-      <h1>Science Archive</h1>
-      <p>
-        데이터 기반 문제 해결을 위한 인공지능 모델의 적용 방식과 정보 처리 과정을 분석하는 과학 포트폴리오입니다.
-        이 사이트는 인공지능을 단순한 도구가 아니라, 현실의 데이터를 구조화하고 해석 가능한 정보로 변환하는
-        정보 처리 시스템으로 바라보는 탐구 기록입니다.
-      </p>
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">AI · Information Science · Engineering Technology</div>
+        <h1>Science Archive</h1>
+        <p class="hero-lead">
+          데이터 기반 문제 해결을 위한 인공지능 모델의 적용 방식과 정보 처리 과정을 분석하는 과학 포트폴리오입니다.
+          이 사이트는 AI를 단순한 결과 생성 도구가 아니라, 현실의 데이터를 구조화하고 해석 가능한 정보로 변환하는
+          정보 처리 시스템으로 탐구합니다.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#sections">섹션 선택하기 →</a>
+          <a class="btn ghost" href="#purpose">사이트 목표 보기</a>
+        </div>
+      </div>
 
-      <div class="hero-buttons">
-        <a class="button primary" href="#sections">섹션 살펴보기</a>
-        <a class="button secondary" href="#purpose">사이트 목표 보기</a>
+      <div class="hero-visual" aria-label="Data pipeline illustration">
+        <div class="pipeline-mini">
+          <div class="mini-node"><strong>Problem</strong><span>현실 문제 정의</span><div class="pulse"></div></div>
+          <div class="mini-node"><strong>Data</strong><span>수집 · 정제 · 표현</span><div class="pulse"></div></div>
+          <div class="mini-node"><strong>Model</strong><span>분류 · 예측 · 탐지</span><div class="pulse"></div></div>
+          <div class="mini-node"><strong>Interpretation</strong><span>해석 · 신뢰성 · 윤리</span><div class="pulse"></div></div>
+        </div>
       </div>
     </div>
   </header>
@@ -336,7 +755,7 @@
     <div class="nav-inner">
       <a href="#purpose">목표</a>
       <a href="#sections">섹션</a>
-      <a href="#process">문제 해결 구조</a>
+      <a href="#process">문제 해결</a>
       <a href="#representation">정보 표현</a>
       <a href="#model">모델 적용</a>
       <a href="#bio">생명공학</a>
@@ -345,272 +764,695 @@
       <a href="#environment">환경</a>
       <a href="#trust">신뢰성</a>
       <a href="#ethics">윤리</a>
-      <a href="#notes">탐구 기록</a>
+      <a href="#notes">노트</a>
     </div>
   </nav>
 
   <main>
     <section class="intro" id="purpose">
-      <h2>사이트 구상</h2>
+      <h2>사이트의 핵심 방향</h2>
       <p>
-        이 포트폴리오 사이트는 인공지능의 특정 구조나 알고리즘을 반복적으로 설명하는 데 목적을 두지 않습니다.
-        이미 학습한 인공지능 개념을 바탕으로, 데이터가 현실 문제를 해결하기 위해 어떤 방식으로 수집되고,
-        구조화되고, 모델에 의해 처리되며, 최종적으로 해석 가능한 정보로 바뀌는지를 분석하는 데 초점을 둡니다.
+        이 포트폴리오는 인공지능 모델의 내부 구조를 반복적으로 설명하는 데 목적을 두지 않습니다.
+        중심은 데이터입니다. 현실의 문제가 데이터로 바뀌고, 그 데이터가 정보 구조로 정리되며,
+        인공지능 모델을 거쳐 해석 가능한 결과로 변환되는 과정을 분석합니다.
       </p>
       <p>
-        따라서 이 사이트의 중심은 모델 자체가 아니라 데이터와 정보 처리 과정입니다. 생명공학, 화학, 의료,
-        환경, 공학 등 여러 분야의 사례를 폭넓게 다루되, 모든 섹션은 공통적으로
-        “데이터가 어떻게 문제 해결의 근거가 되는가”라는 질문으로 연결됩니다.
+        따라서 각 섹션은 “어떤 모델이 더 뛰어난가”보다 “어떤 데이터가 어떤 문제 해결에 적합한가”,
+        “데이터가 어떻게 표현되어야 AI가 의미 있는 결과를 낼 수 있는가”,
+        “그 결과를 어떻게 신뢰하고 해석해야 하는가”를 중심으로 구성됩니다.
       </p>
     </section>
 
     <section id="sections">
+      <div class="section-title">
+        <h2>Explore Sections</h2>
+        <p>카드를 클릭하면 해당 세부 섹션으로 이동합니다.</p>
+      </div>
+
       <div class="section-grid">
-        <div class="card">
-          <span>🧭</span>
-          <h3>데이터 기반 문제 해결의 기본 구조</h3>
-          <p>문제 설정부터 데이터 처리, 모델 적용, 결과 해석까지의 전체 흐름을 분석합니다.</p>
-        </div>
-
-        <div class="card">
-          <span>🔢</span>
-          <h3>데이터의 구조와 정보 표현 방식</h3>
-          <p>표, 벡터, 행렬, 이미지, 시계열, 그래프 등 다양한 데이터 표현 방식을 다룹니다.</p>
-        </div>
-
-        <div class="card">
-          <span>🤖</span>
-          <h3>인공지능 모델의 적용 방식 비교</h3>
-          <p>분류, 예측, 군집화, 이상 탐지 등 문제 유형별 모델 적용 방식을 비교합니다.</p>
-        </div>
-
-        <div class="card">
-          <span>🧬</span>
-          <h3>생명공학 데이터의 정보 처리</h3>
-          <p>생명 현상과 관련된 복잡한 데이터를 AI가 어떻게 해석하는지 탐구합니다.</p>
-        </div>
-
-        <div class="card">
-          <span>⚗️</span>
-          <h3>화학 및 분자 데이터의 활용</h3>
-          <p>분자 구조, 물질 성질, 반응 예측 등 화학 데이터를 정보학 관점에서 분석합니다.</p>
-        </div>
-
-        <div class="card">
-          <span>🏥</span>
-          <h3>의료 및 헬스케어 데이터</h3>
-          <p>의료 영상, 생체 신호, 검사 수치가 의사결정 보조에 활용되는 과정을 다룹니다.</p>
-        </div>
-
-        <div class="card">
-          <span>🌍</span>
-          <h3>환경과 공학 문제의 데이터 예측</h3>
-          <p>환경, 에너지, 센서 데이터를 활용한 예측과 의사결정 과정을 탐구합니다.</p>
-        </div>
-
-        <div class="card">
-          <span>🔍</span>
-          <h3>해석 가능성과 신뢰성</h3>
-          <p>AI 결과를 어떻게 신뢰하고, 오류와 편향을 어떻게 분석할지 탐구합니다.</p>
-        </div>
-
-        <div class="card">
-          <span>🛡️</span>
-          <h3>데이터 윤리와 정보 보호</h3>
-          <p>민감한 데이터 활용에서 발생하는 개인정보, 편향, 책임성 문제를 다룹니다.</p>
-        </div>
-
-        <div class="card">
-          <span>📝</span>
-          <h3>탐구 기록과 확장 노트</h3>
-          <p>수업, 독서, 논문, 실험 아이디어를 연결한 탐구 과정을 기록합니다.</p>
-        </div>
+        <a class="card-link" href="#process">
+          <div class="card"><span class="icon">🧭</span><h3>데이터 기반 문제 해결의 기본 구조</h3><p>문제 정의에서 결과 해석까지 AI 기반 문제 해결의 전체 흐름을 분석합니다.</p><span class="open-hint">자세히 보기 →</span></div>
+        </a>
+        <a class="card-link" href="#representation">
+          <div class="card"><span class="icon">🔢</span><h3>데이터 구조와 정보 표현</h3><p>표, 벡터, 이미지, 그래프, 시계열 데이터를 AI가 처리할 수 있는 형태로 이해합니다.</p><span class="open-hint">자세히 보기 →</span></div>
+        </a>
+        <a class="card-link" href="#model">
+          <div class="card"><span class="icon">🤖</span><h3>인공지능 모델의 적용 방식</h3><p>분류, 예측, 군집화, 이상 탐지처럼 문제 유형에 따른 AI 적용 방식을 비교합니다.</p><span class="open-hint">자세히 보기 →</span></div>
+        </a>
+        <a class="card-link" href="#bio">
+          <div class="card"><span class="icon">🧬</span><h3>생명공학 데이터 해석</h3><p>생명공학 데이터가 어떻게 구조화되고 AI를 통해 해석되는지 탐구합니다.</p><span class="open-hint">자세히 보기 →</span></div>
+        </a>
+        <a class="card-link" href="#chemistry">
+          <div class="card"><span class="icon">⚗️</span><h3>화학·분자 데이터 활용</h3><p>분자 구조와 물질 정보를 데이터로 표현하고 예측 가능한 패턴을 찾는 과정을 봅니다.</p><span class="open-hint">자세히 보기 →</span></div>
+        </a>
+        <a class="card-link" href="#healthcare">
+          <div class="card"><span class="icon">🏥</span><h3>의료·헬스케어 데이터</h3><p>의료 영상, 생체 신호, 검사 수치가 의사결정 보조에 활용되는 방식을 다룹니다.</p><span class="open-hint">자세히 보기 →</span></div>
+        </a>
+        <a class="card-link" href="#environment">
+          <div class="card"><span class="icon">🌍</span><h3>환경·공학 데이터 예측</h3><p>센서 데이터와 환경 데이터가 예측과 공학적 의사결정에 활용되는 흐름을 분석합니다.</p><span class="open-hint">자세히 보기 →</span></div>
+        </a>
+        <a class="card-link" href="#trust">
+          <div class="card"><span class="icon">🔍</span><h3>해석 가능성과 신뢰성</h3><p>AI 결과를 얼마나 믿을 수 있는지, 오류와 편향을 어떻게 점검할지 탐구합니다.</p><span class="open-hint">자세히 보기 →</span></div>
+        </a>
+        <a class="card-link" href="#ethics">
+          <div class="card"><span class="icon">🛡️</span><h3>데이터 윤리와 정보 보호</h3><p>민감 데이터의 활용에서 개인정보, 공정성, 책임성 문제를 함께 다룹니다.</p><span class="open-hint">자세히 보기 →</span></div>
+        </a>
+        <a class="card-link" href="#notes">
+          <div class="card"><span class="icon">📝</span><h3>탐구 기록과 확장 노트</h3><p>읽은 자료, 탐구 질문, 분석 기록, 다음 탐구 계획을 정리하는 공간입니다.</p><span class="open-hint">자세히 보기 →</span></div>
+        </a>
       </div>
     </section>
 
     <section class="detail-section" id="process">
-      <h2>1. 데이터 기반 문제 해결의 기본 구조</h2>
-      <p>
-        이 섹션에서는 인공지능을 단순한 결과 생성 도구가 아니라, 현실의 문제를 데이터로 변환하고,
-        그 데이터를 처리하여 판단 가능한 정보로 바꾸는 문제 해결 체계로 분석합니다.
-        핵심 흐름은 문제 설정, 데이터 수집, 데이터 정제, 모델 적용, 결과 해석, 한계 검토로 구성됩니다.
-      </p>
+      <div class="detail-head">
+        <div>
+          <div class="mini-label">SECTION 01</div>
+          <h2>데이터 기반 문제 해결의 기본 구조</h2>
+          <p>
+            데이터 기반 문제 해결은 현실 문제를 바로 AI에 넣는 과정이 아닙니다.
+            먼저 문제를 측정 가능한 형태로 정의하고, 필요한 데이터를 수집한 뒤,
+            모델이 처리할 수 있는 정보 구조로 변환해야 합니다. 이후 결과를 해석하고 한계를 검토해야 실제 의사결정에 사용할 수 있습니다.
+          </p>
+        </div>
+        <div class="visual">
+          <svg viewBox="0 0 420 220" role="img" aria-label="Data pipeline">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#38bdf8"/>
+                <stop offset="1" stop-color="#34d399"/>
+              </linearGradient>
+            </defs>
+            <rect x="20" y="55" width="80" height="60" rx="16" fill="#e0f2fe" stroke="#38bdf8"/>
+            <rect x="120" y="55" width="80" height="60" rx="16" fill="#ecfeff" stroke="#22d3ee"/>
+            <rect x="220" y="55" width="80" height="60" rx="16" fill="#f0fdf4" stroke="#34d399"/>
+            <rect x="320" y="55" width="80" height="60" rx="16" fill="#faf5ff" stroke="#a78bfa"/>
+            <path d="M100 85 H120 M200 85 H220 M300 85 H320" stroke="url(#g1)" stroke-width="5" stroke-linecap="round"/>
+            <text x="60" y="90" text-anchor="middle" font-size="13" font-weight="700">Problem</text>
+            <text x="160" y="90" text-anchor="middle" font-size="13" font-weight="700">Data</text>
+            <text x="260" y="90" text-anchor="middle" font-size="13" font-weight="700">Model</text>
+            <text x="360" y="90" text-anchor="middle" font-size="13" font-weight="700">Insight</text>
+            <circle cx="80" cy="160" r="5" fill="#38bdf8"/>
+            <circle cx="130" cy="170" r="5" fill="#22d3ee"/>
+            <circle cx="190" cy="155" r="5" fill="#34d399"/>
+            <circle cx="250" cy="175" r="5" fill="#a78bfa"/>
+            <circle cx="310" cy="160" r="5" fill="#38bdf8"/>
+            <path d="M80 160 C130 120 190 205 250 175 S310 160 350 140" fill="none" stroke="#0f172a" stroke-width="3" opacity="0.75"/>
+          </svg>
+        </div>
+      </div>
 
-      <div class="visual-box">
-        <div class="step">문제 설정</div>
-        <div class="step">데이터 수집</div>
-        <div class="step">정보 구조화</div>
-        <div class="step">모델 적용</div>
-        <div class="step">결과 해석</div>
+      <div class="content-grid">
+        <div class="info-box">
+          <h4>핵심 질문</h4>
+          <ul>
+            <li>문제를 어떤 데이터로 표현할 수 있는가?</li>
+            <li>데이터가 모델에 입력되기 전 어떤 정제가 필요한가?</li>
+            <li>결과는 실제 문제 해결에 어떤 근거를 제공하는가?</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h4>포트폴리오에서 보여줄 역량</h4>
+          <ul>
+            <li>문제 정의 능력</li>
+            <li>데이터 흐름을 분석하는 정보학적 사고</li>
+            <li>결과를 비판적으로 해석하는 태도</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="interactive">
+        <h4>직접 체험: 단계별 설명 보기</h4>
+        <p>버튼을 눌러 데이터 기반 문제 해결의 각 단계를 확인하세요.</p>
+        <div class="control-row">
+          <button class="chip-btn active" onclick="showPipeline('problem', this)">문제 설정</button>
+          <button class="chip-btn" onclick="showPipeline('data', this)">데이터 구조화</button>
+          <button class="chip-btn" onclick="showPipeline('model', this)">모델 적용</button>
+          <button class="chip-btn" onclick="showPipeline('interpret', this)">결과 해석</button>
+        </div>
+        <div class="result-panel" id="pipelineResult">
+          현실 문제를 바로 계산하지 않고, 측정 가능한 질문으로 바꾸는 단계입니다. 예를 들어 “공기가 나쁘다”는 표현보다 “미세먼지 농도를 예측할 수 있는가”처럼 데이터화 가능한 질문이 필요합니다.
+        </div>
       </div>
 
       <div class="keyword-box">
-        <span class="keyword">문제 정의</span>
-        <span class="keyword">데이터 흐름</span>
-        <span class="keyword">정보 처리</span>
-        <span class="keyword">결과 해석</span>
+        <span class="keyword">Problem Definition</span>
+        <span class="keyword">Data Pipeline</span>
+        <span class="keyword">Information Processing</span>
+        <span class="keyword">Interpretation</span>
       </div>
     </section>
 
     <section class="detail-section" id="representation">
-      <h2>2. 데이터의 구조와 정보 표현 방식</h2>
-      <p>
-        이 섹션은 정보학적 관점이 가장 강하게 드러나는 부분입니다. 서로 다른 분야의 데이터도
-        인공지능 모델이 처리하기 위해서는 수치, 벡터, 행렬, 이미지, 그래프, 시계열 등 일정한 정보 구조로
-        표현되어야 합니다. 이 과정에서 데이터의 의미가 단순화되거나 손실될 수 있으므로,
-        데이터 표현 방식 자체가 결과 해석에 중요한 영향을 미칩니다.
-      </p>
-
-      <div class="keyword-box">
-        <span class="keyword">벡터</span>
-        <span class="keyword">행렬</span>
-        <span class="keyword">시계열</span>
-        <span class="keyword">이미지 데이터</span>
-        <span class="keyword">그래프 구조</span>
+      <div class="detail-head">
+        <div>
+          <div class="mini-label">SECTION 02</div>
+          <h2>데이터의 구조와 정보 표현 방식</h2>
+          <p>
+            인공지능이 데이터를 처리하려면 먼저 데이터가 일정한 형식으로 표현되어야 합니다.
+            표 데이터, 이미지, 시계열, 그래프 데이터는 서로 다른 구조를 가지며,
+            어떤 표현 방식을 선택하느냐에 따라 모델이 볼 수 있는 정보와 잃어버리는 정보가 달라집니다.
+          </p>
+        </div>
+        <div class="visual">
+          <svg viewBox="0 0 420 240" aria-label="Data representation">
+            <rect x="30" y="30" width="90" height="70" rx="14" fill="#e0f2fe" stroke="#38bdf8"/>
+            <text x="75" y="70" text-anchor="middle" font-weight="700">Table</text>
+            <rect x="165" y="30" width="90" height="70" rx="14" fill="#ecfeff" stroke="#22d3ee"/>
+            <circle cx="190" cy="56" r="7" fill="#0ea5e9"/>
+            <circle cx="225" cy="75" r="7" fill="#14b8a6"/>
+            <path d="M190 56 L225 75" stroke="#0f172a" stroke-width="2"/>
+            <text x="210" y="116" text-anchor="middle" font-weight="700">Graph</text>
+            <rect x="300" y="30" width="90" height="70" rx="14" fill="#f0fdf4" stroke="#34d399"/>
+            <path d="M318 75 Q335 45 350 72 T378 68" fill="none" stroke="#047857" stroke-width="4"/>
+            <text x="345" y="116" text-anchor="middle" font-weight="700">Signal</text>
+            <rect x="95" y="150" width="230" height="34" rx="17" fill="#0f172a"/>
+            <text x="210" y="172" text-anchor="middle" fill="white" font-weight="700">Representation → Model Input</text>
+          </svg>
+        </div>
       </div>
+
+      <div class="interactive">
+        <h4>직접 체험: 데이터 유형 선택하기</h4>
+        <p>데이터 유형을 선택하면, 그 데이터가 어떤 방식으로 정보화되는지 확인할 수 있습니다.</p>
+        <select class="select" onchange="showRepresentation(this.value)">
+          <option value="table">표 데이터</option>
+          <option value="image">이미지 데이터</option>
+          <option value="signal">시계열·생체 신호</option>
+          <option value="graph">그래프 데이터</option>
+        </select>
+        <div class="result-panel" id="representationResult">
+          표 데이터는 행과 열로 구성됩니다. 각 행은 하나의 사례, 각 열은 특징을 나타낼 수 있습니다. 검사 수치, 센서 측정값, 실험 조건처럼 비교 가능한 데이터에 적합합니다.
+        </div>
+      </div>
+
+      <details>
+        <summary>왜 정보 표현 방식이 중요한가?</summary>
+        <p>
+          같은 현실 현상도 어떤 형식으로 표현하느냐에 따라 AI가 파악하는 정보가 달라집니다.
+          예를 들어 이미지는 공간적 패턴이 중요하고, 시계열 데이터는 시간 변화가 중요합니다.
+          따라서 데이터 표현은 단순한 준비 과정이 아니라 문제 해결 결과를 좌우하는 핵심 단계입니다.
+        </p>
+      </details>
     </section>
 
     <section class="detail-section" id="model">
-      <h2>3. 인공지능 모델의 적용 방식 비교</h2>
-      <p>
-        이 섹션에서는 특정 신경망 구조나 학습 알고리즘을 반복적으로 설명하기보다,
-        문제 유형에 따라 인공지능 모델이 어떻게 다르게 적용되는지를 분석합니다.
-        예측, 분류, 군집화, 이상 탐지, 추천처럼 문제 해결 목적이 달라지면
-        데이터 처리 방식과 결과 해석 방식도 함께 달라집니다.
-      </p>
+      <div class="detail-head">
+        <div>
+          <div class="mini-label">SECTION 03</div>
+          <h2>인공지능 모델의 적용 방식 비교</h2>
+          <p>
+            이 섹션은 특정 모델의 내부 구조를 반복 설명하지 않고, 문제 유형에 따라 AI가 어떤 방식으로 적용되는지를 비교합니다.
+            핵심은 모델 이름을 많이 아는 것이 아니라, 문제의 성격에 맞는 분석 방식을 선택하는 것입니다.
+          </p>
+        </div>
+        <div class="visual">
+          <svg viewBox="0 0 420 230" aria-label="AI model types">
+            <rect x="35" y="40" width="350" height="150" rx="24" fill="#f8fafc" stroke="#cbd5e1"/>
+            <circle cx="100" cy="95" r="28" fill="#e0f2fe" stroke="#38bdf8"/>
+            <circle cx="180" cy="135" r="28" fill="#ecfeff" stroke="#22d3ee"/>
+            <circle cx="260" cy="95" r="28" fill="#f0fdf4" stroke="#34d399"/>
+            <circle cx="320" cy="145" r="18" fill="#fee2e2" stroke="#fb7185"/>
+            <text x="100" y="100" text-anchor="middle" font-weight="700">분류</text>
+            <text x="180" y="140" text-anchor="middle" font-weight="700">예측</text>
+            <text x="260" y="100" text-anchor="middle" font-weight="700">군집</text>
+            <text x="320" y="150" text-anchor="middle" font-weight="700" font-size="12">탐지</text>
+          </svg>
+        </div>
+      </div>
 
-      <div class="keyword-box">
-        <span class="keyword">분류</span>
-        <span class="keyword">예측</span>
-        <span class="keyword">군집화</span>
-        <span class="keyword">이상 탐지</span>
-        <span class="keyword">추천 시스템</span>
+      <div class="interactive">
+        <h4>직접 체험: 문제 유형에 맞는 AI 적용 방식</h4>
+        <p>문제 유형을 선택하면, 적절한 적용 방식과 해석 포인트가 나타납니다.</p>
+        <select class="select" onchange="showModelUse(this.value)">
+          <option value="classification">분류 문제</option>
+          <option value="prediction">예측 문제</option>
+          <option value="clustering">군집화 문제</option>
+          <option value="anomaly">이상 탐지 문제</option>
+        </select>
+        <div class="result-panel" id="modelResult">
+          분류는 입력 데이터를 미리 정의된 범주 중 하나로 나누는 방식입니다. 예를 들어 정상/비정상, 위험/비위험처럼 의사결정 기준이 필요한 문제에 활용될 수 있습니다.
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <div class="info-box">
+          <h4>세특과 차별화되는 지점</h4>
+          <ul>
+            <li>모델 내부 구조 설명보다 문제 유형과 적용 방식에 초점</li>
+            <li>성능 수치보다 결과가 어떤 판단 근거가 되는지 분석</li>
+            <li>데이터와 해석의 관계를 중심으로 탐구</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h4>주의할 점</h4>
+          <ul>
+            <li>모든 문제에 하나의 모델이 최선이라고 단정하지 않기</li>
+            <li>데이터 품질, 목적, 해석 가능성을 함께 고려하기</li>
+            <li>정확도만으로 실제 유용성을 판단하지 않기</li>
+          </ul>
+        </div>
       </div>
     </section>
 
     <section class="detail-section" id="bio">
-      <h2>4. 생명공학 데이터의 정보 처리와 해석</h2>
-      <p>
-        이 섹션은 생명공학과 인공지능 정보학을 연결하는 핵심 공간입니다.
-        유전자나 단백질 구조 자체를 단순 반복하기보다, 세포 이미지, 생체 신호,
-        질병 관련 데이터, 약물 반응 데이터처럼 복잡한 생명공학 데이터가
-        어떤 정보 구조로 정리되고 해석되는지를 중심으로 탐구합니다.
-      </p>
-
-      <div class="keyword-box">
-        <span class="keyword">생체 데이터</span>
-        <span class="keyword">세포 이미지</span>
-        <span class="keyword">약물 반응</span>
-        <span class="keyword">질병 예측</span>
-        <span class="keyword">바이오 데이터 해석</span>
+      <div class="detail-head">
+        <div>
+          <div class="mini-label">SECTION 04</div>
+          <h2>생명공학 데이터의 정보 처리와 해석</h2>
+          <p>
+            생명공학 데이터는 생명 현상의 일부를 측정 가능한 정보로 바꾼 것입니다.
+            이 섹션은 특정 유전자나 단백질 구조 예측을 반복하기보다, 세포 이미지, 생체 신호,
+            약물 반응, 질병 관련 데이터가 AI를 통해 어떻게 정리되고 해석되는지에 집중합니다.
+          </p>
+        </div>
+        <div class="visual">
+          <svg viewBox="0 0 420 240" aria-label="Bio data illustration">
+            <rect x="25" y="35" width="370" height="170" rx="28" fill="#f0fdf4" stroke="#86efac"/>
+            <circle cx="130" cy="120" r="56" fill="#dcfce7" stroke="#22c55e" stroke-width="3"/>
+            <circle cx="130" cy="120" r="22" fill="#bbf7d0" stroke="#16a34a"/>
+            <path d="M230 65 C280 75 290 120 245 140 S250 190 320 175" fill="none" stroke="#0f766e" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="230" cy="65" r="7" fill="#0ea5e9"/>
+            <circle cx="245" cy="140" r="7" fill="#14b8a6"/>
+            <circle cx="320" cy="175" r="7" fill="#22c55e"/>
+            <text x="130" y="210" text-anchor="middle" font-weight="700">Cell Image</text>
+            <text x="285" y="210" text-anchor="middle" font-weight="700">Bio Signal</text>
+          </svg>
+        </div>
       </div>
+
+      <div class="interactive">
+        <h4>직접 체험: 데이터 품질이 해석 신뢰도에 미치는 영향</h4>
+        <p>슬라이더를 움직이면 데이터 품질 변화가 해석 신뢰도에 주는 영향을 개념적으로 확인할 수 있습니다.</p>
+        <input type="range" min="10" max="100" value="70" oninput="updateQuality(this.value)" />
+        <div class="meter"><span id="qualityMeter" style="width:70%"></span></div>
+        <div class="result-panel" id="qualityText">
+          데이터 품질이 비교적 높으면 패턴 해석의 신뢰도가 올라갑니다. 다만 생명공학 데이터는 노이즈와 개인차가 크기 때문에 결과를 단정하기보다 검증 과정이 필요합니다.
+        </div>
+        <p class="note">※ 이 슬라이더는 실제 예측 모델이 아니라 개념 이해를 위한 시각화입니다.</p>
+      </div>
+
+      <details>
+        <summary>생명공학 데이터에서 AI가 중요한 이유</summary>
+        <p>
+          생명공학 데이터는 양이 많고 복잡하며, 변수 사이의 관계가 직관적으로 보이지 않는 경우가 많습니다.
+          AI는 이러한 데이터에서 패턴을 찾는 데 도움을 줄 수 있지만, 생명 현상 자체의 원인을 자동으로 증명하는 것은 아닙니다.
+          따라서 결과를 생명과학적 지식과 함께 해석하는 과정이 중요합니다.
+        </p>
+      </details>
     </section>
 
     <section class="detail-section" id="chemistry">
-      <h2>5. 화학 및 분자 데이터의 인공지능 활용</h2>
-      <p>
-        화학 데이터는 분자 구조, 결합 정보, 물질의 성질, 반응 조건처럼 복잡한 정보를 포함합니다.
-        이 섹션에서는 인공지능이 화학 문제를 대신 해결한다는 관점이 아니라,
-        분자와 물질 정보를 데이터로 표현하고 그 안에서 예측 가능한 패턴을 찾아내는 과정을 분석합니다.
-      </p>
+      <div class="detail-head">
+        <div>
+          <div class="mini-label">SECTION 05</div>
+          <h2>화학 및 분자 데이터의 인공지능 활용</h2>
+          <p>
+            화학 데이터는 분자 구조, 결합 정보, 물질의 성질, 반응 조건 같은 정보를 포함합니다.
+            AI는 분자의 특성 예측, 반응 경향 분석, 독성 가능성 검토, 신약 후보 탐색 등에서 데이터 기반 판단을 보조할 수 있습니다.
+          </p>
+        </div>
+        <div class="visual">
+          <svg viewBox="0 0 420 240" aria-label="Molecule illustration">
+            <line x1="130" y1="120" x2="210" y2="70" stroke="#0f172a" stroke-width="4"/>
+            <line x1="130" y1="120" x2="210" y2="170" stroke="#0f172a" stroke-width="4"/>
+            <line x1="210" y1="70" x2="300" y2="115" stroke="#0f172a" stroke-width="4"/>
+            <line x1="210" y1="170" x2="300" y2="115" stroke="#0f172a" stroke-width="4"/>
+            <circle cx="130" cy="120" r="28" fill="#e0f2fe" stroke="#38bdf8"/>
+            <circle cx="210" cy="70" r="26" fill="#ecfeff" stroke="#22d3ee"/>
+            <circle cx="210" cy="170" r="26" fill="#f0fdf4" stroke="#34d399"/>
+            <circle cx="300" cy="115" r="30" fill="#faf5ff" stroke="#a78bfa"/>
+            <text x="130" y="126" text-anchor="middle" font-weight="900">C</text>
+            <text x="210" y="76" text-anchor="middle" font-weight="900">O</text>
+            <text x="210" y="176" text-anchor="middle" font-weight="900">N</text>
+            <text x="300" y="121" text-anchor="middle" font-weight="900">S</text>
+          </svg>
+        </div>
+      </div>
 
-      <div class="keyword-box">
-        <span class="keyword">분자 구조</span>
-        <span class="keyword">물질 특성</span>
-        <span class="keyword">반응 예측</span>
-        <span class="keyword">독성 예측</span>
-        <span class="keyword">신약 후보 탐색</span>
+      <div class="interactive">
+        <h4>직접 체험: 분자 특징이 많아질수록 무엇이 달라질까?</h4>
+        <p>분자 데이터에서 구조 정보, 전하, 결합, 반응 조건 같은 특징을 많이 포함할수록 모델이 참고할 정보는 늘지만, 해석은 더 복잡해질 수 있습니다.</p>
+        <input type="range" min="1" max="5" value="3" oninput="updateChem(this.value)" />
+        <div class="bar-chart">
+          <div class="bar"><span>정보량</span><div class="bar-track"><div class="bar-fill" id="chemInfo" style="width:60%"></div></div></div>
+          <div class="bar"><span>해석 복잡도</span><div class="bar-track"><div class="bar-fill" id="chemComplex" style="width:50%"></div></div></div>
+        </div>
+        <div class="result-panel" id="chemText">
+          현재는 구조와 일부 성질을 함께 고려하는 수준입니다. 정보량과 해석 가능성 사이의 균형이 중요합니다.
+        </div>
       </div>
     </section>
 
     <section class="detail-section" id="healthcare">
-      <h2>6. 의료 및 헬스케어 데이터의 의사결정 지원</h2>
-      <p>
-        의료와 헬스케어 분야에서는 영상, 검사 수치, 생체 신호, 환자 기록 등 다양한 데이터가 활용됩니다.
-        이 섹션에서는 인공지능이 의학적 판단을 대체하는 것이 아니라,
-        복잡한 데이터를 정리하고 위험도를 예측하며 의사결정을 보조하는 정보 처리 도구로 작동하는 방식을 다룹니다.
-      </p>
+      <div class="detail-head">
+        <div>
+          <div class="mini-label">SECTION 06</div>
+          <h2>의료 및 헬스케어 데이터의 의사결정 지원</h2>
+          <p>
+            의료 AI는 의료진의 판단을 대체하는 것이 아니라, 의료 영상, 검사 수치, 생체 신호, 환자 기록 등에서
+            의사결정에 도움이 될 수 있는 정보를 찾아내는 보조 도구로 이해하는 것이 적절합니다.
+          </p>
+        </div>
+        <div class="visual">
+          <svg viewBox="0 0 420 240" aria-label="Healthcare signal">
+            <rect x="35" y="45" width="350" height="150" rx="24" fill="#f8fafc" stroke="#cbd5e1"/>
+            <path d="M70 120 H110 L125 90 L150 160 L175 80 L205 120 H245 L260 105 L280 130 L300 115 H350" fill="none" stroke="#ef4444" stroke-width="5" stroke-linejoin="round"/>
+            <circle cx="210" cy="120" r="42" fill="#e0f2fe" opacity="0.65"/>
+            <text x="210" y="215" text-anchor="middle" font-weight="800">Signal → Pattern → Decision Support</text>
+          </svg>
+        </div>
+      </div>
 
-      <div class="keyword-box">
-        <span class="keyword">의료 영상</span>
-        <span class="keyword">생체 신호</span>
-        <span class="keyword">진단 보조</span>
-        <span class="keyword">위험도 예측</span>
+      <div class="interactive">
+        <h4>직접 체험: 민감도와 경고 수의 균형</h4>
+        <p>의료 보조 시스템에서는 위험 신호를 놓치지 않는 것과 불필요한 경고를 줄이는 것 사이의 균형이 중요합니다.</p>
+        <input type="range" min="10" max="90" value="55" oninput="updateHealthcare(this.value)" />
+        <div class="bar-chart">
+          <div class="bar"><span>민감도</span><div class="bar-track"><div class="bar-fill" id="healthSensitivity" style="width:55%"></div></div></div>
+          <div class="bar"><span>경고 증가</span><div class="bar-track"><div class="bar-fill" id="healthAlerts" style="width:45%"></div></div></div>
+        </div>
+        <div class="result-panel" id="healthText">
+          기준을 중간 정도로 설정하면 위험 신호 탐지와 불필요한 경고 사이의 균형을 고려할 수 있습니다.
+        </div>
+        <p class="note">※ 실제 의료 판단이 아니라 AI 의사결정 보조 개념을 설명하기 위한 모형입니다.</p>
       </div>
     </section>
 
     <section class="detail-section" id="environment">
-      <h2>7. 환경과 공학 문제에서의 데이터 기반 예측</h2>
-      <p>
-        환경과 공학 문제는 센서 데이터, 기후 데이터, 에너지 사용량, 교통 흐름처럼
-        시간에 따라 변화하는 데이터를 포함합니다. 이 섹션에서는 데이터를 기반으로 미래 상태를 예측하고,
-        더 나은 의사결정을 지원하는 인공지능의 역할을 분석합니다.
-      </p>
+      <div class="detail-head">
+        <div>
+          <div class="mini-label">SECTION 07</div>
+          <h2>환경과 공학 문제에서의 데이터 기반 예측</h2>
+          <p>
+            환경과 공학 문제는 센서 데이터, 기후 데이터, 에너지 사용량, 교통 흐름처럼 시간에 따라 변화하는 데이터를 포함합니다.
+            이러한 데이터는 예측과 의사결정에 활용될 수 있지만, 측정 품질과 맥락 해석이 함께 고려되어야 합니다.
+          </p>
+        </div>
+        <div class="visual">
+          <svg viewBox="0 0 420 240" aria-label="Environment data">
+            <rect x="50" y="60" width="70" height="120" rx="12" fill="#e0f2fe" stroke="#38bdf8"/>
+            <rect x="145" y="95" width="70" height="85" rx="12" fill="#ecfeff" stroke="#22d3ee"/>
+            <rect x="240" y="40" width="70" height="140" rx="12" fill="#f0fdf4" stroke="#34d399"/>
+            <path d="M60 200 C110 160 155 170 200 130 S280 80 350 95" fill="none" stroke="#0f172a" stroke-width="4"/>
+            <text x="210" y="220" text-anchor="middle" font-weight="800">Sensor Data Trend</text>
+          </svg>
+        </div>
+      </div>
 
-      <div class="keyword-box">
-        <span class="keyword">센서 데이터</span>
-        <span class="keyword">환경 예측</span>
-        <span class="keyword">에너지 데이터</span>
-        <span class="keyword">기후 정보</span>
-        <span class="keyword">공학적 의사결정</span>
+      <div class="interactive">
+        <h4>직접 체험: 예측 기간이 길어지면 불확실성은?</h4>
+        <p>일반적으로 예측 기간이 길어질수록 고려해야 할 변수가 늘고 불확실성이 커질 수 있습니다.</p>
+        <input type="range" min="1" max="12" value="4" oninput="updateEnvironment(this.value)" />
+        <div class="meter"><span id="envMeter" style="width:35%"></span></div>
+        <div class="result-panel" id="envText">
+          4일 정도의 짧은 예측에서는 최근 데이터의 영향이 상대적으로 크게 작용합니다. 장기 예측으로 갈수록 불확실성을 함께 표시하는 것이 중요합니다.
+        </div>
       </div>
     </section>
 
     <section class="detail-section" id="trust">
-      <h2>8. 인공지능 결과의 해석 가능성과 신뢰성</h2>
-      <p>
-        인공지능 결과가 높은 정확도를 보이더라도, 그 결과가 왜 나왔는지 설명할 수 없다면
-        실제 문제 해결에 그대로 적용하기 어렵습니다. 이 섹션에서는 데이터 편향, 과적합,
-        일반화의 한계, 정보 손실, 설명 가능한 인공지능의 필요성을 중심으로
-        AI 결과를 비판적으로 해석하는 방법을 탐구합니다.
-      </p>
-
-      <div class="keyword-box">
-        <span class="keyword">설명 가능성</span>
-        <span class="keyword">데이터 편향</span>
-        <span class="keyword">과적합</span>
-        <span class="keyword">일반화</span>
-        <span class="keyword">신뢰성</span>
+      <div class="detail-head">
+        <div>
+          <div class="mini-label">SECTION 08</div>
+          <h2>인공지능 결과의 해석 가능성과 신뢰성</h2>
+          <p>
+            AI 결과가 높아 보이는 정확도를 가지더라도, 결과가 왜 나왔는지 설명할 수 없다면 실제 문제 해결에 적용하기 어렵습니다.
+            이 섹션은 설명 가능성, 데이터 편향, 일반화, 과적합, 정보 손실을 중심으로 AI 결과를 비판적으로 해석합니다.
+          </p>
+        </div>
+        <div class="visual">
+          <svg viewBox="0 0 420 240" aria-label="Trust meter">
+            <circle cx="210" cy="120" r="82" fill="#f8fafc" stroke="#cbd5e1" stroke-width="12"/>
+            <path d="M128 120 A82 82 0 0 1 292 120" fill="none" stroke="#38bdf8" stroke-width="14" stroke-linecap="round"/>
+            <line x1="210" y1="120" x2="260" y2="85" stroke="#0f172a" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="210" cy="120" r="8" fill="#0f172a"/>
+            <text x="210" y="218" text-anchor="middle" font-weight="800">Explainability & Reliability</text>
+          </svg>
+        </div>
       </div>
+
+      <div class="interactive">
+        <h4>직접 체험: 데이터 편향 위험도</h4>
+        <p>편향된 데이터가 많을수록 AI 결과가 특정 집단이나 상황에만 잘 맞을 위험이 커질 수 있습니다.</p>
+        <input type="range" min="0" max="100" value="30" oninput="updateBias(this.value)" />
+        <div class="meter"><span id="biasMeter" style="width:30%"></span></div>
+        <div class="result-panel" id="biasText">
+          편향 위험이 낮은 편입니다. 하지만 실제 적용 전에는 데이터 출처와 대표성을 점검해야 합니다.
+        </div>
+      </div>
+
+      <details>
+        <summary>신뢰성을 높이기 위한 질문</summary>
+        <p>
+          데이터가 충분히 대표적인가, 모델이 학습하지 않은 상황에서도 작동하는가, 결과를 사람이 이해할 수 있는 형태로 설명할 수 있는가,
+          오류가 발생했을 때 원인을 추적할 수 있는가를 확인해야 합니다.
+        </p>
+      </details>
     </section>
 
     <section class="detail-section" id="ethics">
-      <h2>9. 데이터 윤리와 정보 보호</h2>
-      <p>
-        생명공학, 의료, 교육, 환경 데이터는 개인과 사회에 영향을 줄 수 있는 민감한 정보를 포함합니다.
-        이 섹션에서는 인공지능 데이터 활용 과정에서 개인정보 보호, 데이터 소유권,
-        알고리즘 편향, 책임 있는 기술 사용의 필요성을 함께 다룹니다.
-      </p>
+      <div class="detail-head">
+        <div>
+          <div class="mini-label">SECTION 09</div>
+          <h2>데이터 윤리와 정보 보호</h2>
+          <p>
+            생명공학, 의료, 교육, 환경 데이터는 개인과 사회에 영향을 줄 수 있는 민감한 정보를 포함할 수 있습니다.
+            따라서 데이터 활용 가능성뿐 아니라 개인정보 보호, 공정성, 책임성, 설명 가능성을 함께 고려해야 합니다.
+          </p>
+        </div>
+        <div class="visual">
+          <svg viewBox="0 0 420 240" aria-label="Data ethics shield">
+            <path d="M210 35 L320 75 V130 C320 175 280 205 210 220 C140 205 100 175 100 130 V75 Z" fill="#e0f2fe" stroke="#38bdf8" stroke-width="4"/>
+            <path d="M170 125 L200 155 L260 88" fill="none" stroke="#0f766e" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="210" y="210" text-anchor="middle" font-weight="800">Privacy · Fairness · Responsibility</text>
+          </svg>
+        </div>
+      </div>
 
-      <div class="keyword-box">
-        <span class="keyword">개인정보 보호</span>
-        <span class="keyword">데이터 윤리</span>
-        <span class="keyword">책임성</span>
-        <span class="keyword">공정성</span>
+      <div class="interactive">
+        <h4>직접 체험: 데이터 활용 전 윤리 점검</h4>
+        <p>체크리스트를 눌러 데이터 활용 전 고려해야 할 항목을 확인하세요.</p>
+        <div class="checklist">
+          <label class="check-item"><input type="checkbox" onchange="updateEthics()"> 데이터 출처와 수집 목적을 확인했다</label>
+          <label class="check-item"><input type="checkbox" onchange="updateEthics()"> 개인정보 또는 민감 정보 여부를 검토했다</label>
+          <label class="check-item"><input type="checkbox" onchange="updateEthics()"> 특정 집단에 대한 편향 가능성을 점검했다</label>
+          <label class="check-item"><input type="checkbox" onchange="updateEthics()"> 결과를 사람이 해석할 수 있는 방식으로 제시할 계획이 있다</label>
+        </div>
+        <div class="result-panel" id="ethicsText">
+          0개 항목을 확인했습니다. 데이터 활용 전에는 기술적 가능성뿐 아니라 사회적 영향을 함께 고려해야 합니다.
+        </div>
       </div>
     </section>
 
     <section class="detail-section" id="notes">
-      <h2>10. 탐구 기록과 확장 노트</h2>
-      <p>
-        이 섹션은 완성된 결과물만 보여주는 공간이 아니라, 탐구 과정과 사고의 변화를 기록하는 공간입니다.
-        수업에서 배운 개념, 관련 도서나 논문에서 얻은 아이디어, 새롭게 떠오른 탐구 질문,
-        앞으로 확장하고 싶은 프로젝트 주제를 정리하여 포트폴리오의 지속성을 보여줍니다.
-      </p>
-
-      <div class="keyword-box">
-        <span class="keyword">탐구 질문</span>
-        <span class="keyword">독서 기록</span>
-        <span class="keyword">논문 메모</span>
-        <span class="keyword">아이디어 노트</span>
-        <span class="keyword">확장 계획</span>
+      <div class="detail-head">
+        <div>
+          <div class="mini-label">SECTION 10</div>
+          <h2>탐구 기록과 확장 노트</h2>
+          <p>
+            이 공간은 완성된 결과만 보여주는 곳이 아니라, 읽은 자료, 탐구 질문, 아이디어, 실험 계획을 계속 쌓아가는 연구 노트입니다.
+            포트폴리오의 진정성은 결과뿐 아니라 사고가 어떻게 확장되었는지에서 드러납니다.
+          </p>
+        </div>
+        <div class="visual">
+          <svg viewBox="0 0 420 240" aria-label="Research notes">
+            <rect x="90" y="35" width="240" height="170" rx="22" fill="#fff" stroke="#cbd5e1" stroke-width="3"/>
+            <line x1="130" y1="80" x2="290" y2="80" stroke="#38bdf8" stroke-width="5" stroke-linecap="round"/>
+            <line x1="130" y1="115" x2="260" y2="115" stroke="#22d3ee" stroke-width="5" stroke-linecap="round"/>
+            <line x1="130" y1="150" x2="280" y2="150" stroke="#34d399" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="112" cy="80" r="5" fill="#38bdf8"/>
+            <circle cx="112" cy="115" r="5" fill="#22d3ee"/>
+            <circle cx="112" cy="150" r="5" fill="#34d399"/>
+          </svg>
+        </div>
       </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot">1</div>
+          <div class="timeline-card">
+            <h4>탐구 질문 기록</h4>
+            <p>예: “데이터 품질이 AI 결과 해석에 어느 정도 영향을 줄까?”처럼 질문 형태로 출발합니다.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">2</div>
+          <div class="timeline-card">
+            <h4>자료 조사와 개념 정리</h4>
+            <p>공식 자료, 논문, 교과 개념을 바탕으로 핵심 개념을 정리합니다.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">3</div>
+          <div class="timeline-card">
+            <h4>사례 분석과 한계 검토</h4>
+            <p>생명공학, 화학, 의료, 환경 사례를 연결하고, 데이터 해석의 한계를 함께 기록합니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="interactive">
+        <h4>다음 탐구 아이디어 생성기</h4>
+        <p>버튼을 누르면 이 사이트에 추가할 수 있는 탐구 질문 예시가 나타납니다.</p>
+        <button class="chip-btn" onclick="newIdea()">탐구 질문 생성</button>
+        <div class="result-panel" id="ideaText">
+          버튼을 눌러 다음 탐구 질문을 확인하세요.
+        </div>
+      </div>
+    </section>
+
+    <section class="references">
+      <h2>References & Source Direction</h2>
+      <p>
+        이 사이트의 내용은 인공지능의 정보 처리 과정, 생명공학 데이터 해석, 의료 AI, 환경 데이터, AI 신뢰성·윤리와 관련된
+        공식 자료와 학술적 개념을 바탕으로 확장할 예정입니다.
+      </p>
+      <ul>
+        <li>NIST AI Risk Management Framework: <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">https://www.nist.gov/itl/ai-risk-management-framework</a></li>
+        <li>FDA Artificial Intelligence in Software as a Medical Device: <a href="https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-software-medical-device" target="_blank">https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-software-medical-device</a></li>
+        <li>NIH/NIGMS Bioinformatics and Computational Biology: <a href="https://www.nigms.nih.gov/about/overview/BBCB/bioinfocomp/Pages/default" target="_blank">https://www.nigms.nih.gov/about/overview/BBCB/bioinfocomp/Pages/default</a></li>
+        <li>EPA Understanding Air Sensor Data: <a href="https://www.epa.gov/air-sensor-toolbox/understanding-air-sensor-data" target="_blank">https://www.epa.gov/air-sensor-toolbox/understanding-air-sensor-data</a></li>
+      </ul>
     </section>
   </main>
 
   <footer>
     <p><strong>Science Archive</strong></p>
-    <p>AI와 정보학을 바탕으로 데이터 기반 문제 해결 과정을 분석하는 과학 포트폴리오</p>
+    <p>데이터 기반 문제 해결을 위한 인공지능 모델의 적용 방식과 정보 처리 과정 분석</p>
   </footer>
+
+  <script>
+    function setActiveButton(clicked) {
+      const group = clicked.parentElement.querySelectorAll(".chip-btn");
+      group.forEach(btn => btn.classList.remove("active"));
+      clicked.classList.add("active");
+    }
+
+    function showPipeline(type, clicked) {
+      setActiveButton(clicked);
+      const text = {
+        problem: "현실 문제를 바로 계산하지 않고, 측정 가능한 질문으로 바꾸는 단계입니다. 예를 들어 “공기가 나쁘다”는 표현보다 “미세먼지 농도를 예측할 수 있는가”처럼 데이터화 가능한 질문이 필요합니다.",
+        data: "데이터 구조화는 수집된 정보를 모델이 처리할 수 있는 형태로 바꾸는 과정입니다. 누락값, 단위, 형식, 측정 조건을 정리해야 결과 해석의 신뢰도가 올라갑니다.",
+        model: "모델 적용 단계에서는 문제 유형에 맞는 분석 방식을 선택합니다. 분류, 예측, 군집화, 이상 탐지처럼 목적에 따라 처리 방식이 달라집니다.",
+        interpret: "결과 해석은 모델이 낸 값을 현실의 의미로 연결하는 단계입니다. 단순 수치보다 왜 그런 결과가 나왔는지, 어떤 한계가 있는지를 함께 검토해야 합니다."
+      };
+      document.getElementById("pipelineResult").innerText = text[type];
+    }
+
+    function showRepresentation(value) {
+      const text = {
+        table: "표 데이터는 행과 열로 구성됩니다. 각 행은 하나의 사례, 각 열은 특징을 나타낼 수 있습니다. 검사 수치, 센서 측정값, 실험 조건처럼 비교 가능한 데이터에 적합합니다.",
+        image: "이미지 데이터는 픽셀의 배열로 표현됩니다. 세포 이미지, 의료 영상, 현미경 사진처럼 공간적 패턴이 중요한 데이터에서 활용됩니다.",
+        signal: "시계열 또는 생체 신호는 시간 순서가 중요합니다. 심박, 뇌파, 센서 측정값, 기후 데이터처럼 변화의 흐름을 분석해야 하는 경우에 사용됩니다.",
+        graph: "그래프 데이터는 점과 연결 관계로 표현됩니다. 단백질 상호작용, 분자 구조, 네트워크 관계처럼 연결 자체가 의미를 가지는 데이터에 적합합니다."
+      };
+      document.getElementById("representationResult").innerText = text[value];
+    }
+
+    function showModelUse(value) {
+      const text = {
+        classification: "분류는 입력 데이터를 미리 정의된 범주 중 하나로 나누는 방식입니다. 예를 들어 정상/비정상, 위험/비위험처럼 의사결정 기준이 필요한 문제에 활용될 수 있습니다.",
+        prediction: "예측은 과거 또는 현재 데이터를 바탕으로 미래 값이나 연속적인 수치를 추정하는 방식입니다. 환경 변화, 수요, 위험도 예측과 연결될 수 있습니다.",
+        clustering: "군집화는 정답 범주가 미리 주어지지 않았을 때 비슷한 사례끼리 묶는 방식입니다. 데이터 안의 숨은 구조나 유형을 발견하는 데 유용합니다.",
+        anomaly: "이상 탐지는 일반적인 패턴에서 벗어난 데이터를 찾는 방식입니다. 센서 오류, 비정상 신호, 위험 징후 탐지처럼 드문 사건을 포착하는 데 활용될 수 있습니다."
+      };
+      document.getElementById("modelResult").innerText = text[value];
+    }
+
+    function updateQuality(value) {
+      document.getElementById("qualityMeter").style.width = value + "%";
+      let message = "";
+      if (value < 35) {
+        message = "데이터 품질이 낮으면 노이즈와 누락 정보 때문에 패턴 해석이 불안정해질 수 있습니다. 먼저 데이터 정제와 측정 조건 검토가 필요합니다.";
+      } else if (value < 75) {
+        message = "데이터 품질이 중간 수준이면 일부 패턴을 파악할 수 있지만, 결과를 단정하기보다 추가 검증이 필요합니다.";
+      } else {
+        message = "데이터 품질이 비교적 높으면 패턴 해석의 신뢰도가 올라갑니다. 다만 생명공학 데이터는 노이즈와 개인차가 크기 때문에 결과를 단정하기보다 검증 과정이 필요합니다.";
+      }
+      document.getElementById("qualityText").innerText = message;
+    }
+
+    function updateChem(value) {
+      const info = value * 18;
+      const complex = 20 + value * 14;
+      document.getElementById("chemInfo").style.width = Math.min(info, 100) + "%";
+      document.getElementById("chemComplex").style.width = Math.min(complex, 100) + "%";
+      const texts = [
+        "",
+        "기본적인 구조 정보만 포함한 상태입니다. 단순하지만 놓치는 정보가 많을 수 있습니다.",
+        "구조와 일부 물성을 함께 고려합니다. 예측에 필요한 정보가 늘어나지만 아직 해석은 비교적 단순합니다.",
+        "현재는 구조와 일부 성질을 함께 고려하는 수준입니다. 정보량과 해석 가능성 사이의 균형이 중요합니다.",
+        "결합, 전하, 반응 조건 등 다양한 특징이 포함됩니다. 예측 가능성은 커질 수 있으나 해석은 복잡해집니다.",
+        "매우 많은 특징을 포함한 상태입니다. 정보량은 많지만 불필요한 특징이나 과적합 위험을 함께 점검해야 합니다."
+      ];
+      document.getElementById("chemText").innerText = texts[value];
+    }
+
+    function updateHealthcare(value) {
+      document.getElementById("healthSensitivity").style.width = value + "%";
+      document.getElementById("healthAlerts").style.width = (100 - value + 20 > 100 ? 100 : 100 - value + 20) + "%";
+      let message = "";
+      if (value < 35) {
+        message = "기준이 엄격하면 불필요한 경고는 줄어들 수 있지만, 일부 위험 신호를 놓칠 가능성도 고려해야 합니다.";
+      } else if (value < 70) {
+        message = "기준을 중간 정도로 설정하면 위험 신호 탐지와 불필요한 경고 사이의 균형을 고려할 수 있습니다.";
+      } else {
+        message = "민감도를 높이면 위험 신호를 더 많이 포착할 수 있지만, 불필요한 경고도 증가할 수 있습니다. 실제 적용에서는 의료적 검증이 필요합니다.";
+      }
+      document.getElementById("healthText").innerText = message;
+    }
+
+    function updateEnvironment(value) {
+      const uncertainty = Math.min(20 + value * 6, 100);
+      document.getElementById("envMeter").style.width = uncertainty + "%";
+      let message = "";
+      if (value <= 3) {
+        message = value + "일 예측은 비교적 짧은 기간이므로 최근 데이터의 영향이 상대적으로 큽니다. 그래도 측정 품질과 외부 변수를 함께 고려해야 합니다.";
+      } else if (value <= 8) {
+        message = value + "일 예측은 중기 예측에 가깝습니다. 데이터 추세뿐 아니라 날씨, 계절, 사람의 활동 변화 같은 변수를 함께 고려해야 합니다.";
+      } else {
+        message = value + "일 예측은 불확실성이 커질 수 있습니다. 결과를 단일 값으로 제시하기보다 가능 범위와 신뢰도를 함께 제시하는 것이 적절합니다.";
+      }
+      document.getElementById("envText").innerText = message;
+    }
+
+    function updateBias(value) {
+      document.getElementById("biasMeter").style.width = value + "%";
+      let message = "";
+      if (value < 35) {
+        message = "편향 위험이 낮은 편입니다. 하지만 실제 적용 전에는 데이터 출처와 대표성을 점검해야 합니다.";
+      } else if (value < 70) {
+        message = "편향 위험이 중간 수준입니다. 특정 집단이나 상황의 데이터가 부족한지 확인하고 보완 전략을 세워야 합니다.";
+      } else {
+        message = "편향 위험이 높은 상태입니다. 이 결과를 그대로 적용하면 특정 상황에서 부정확하거나 불공정한 판단으로 이어질 수 있습니다.";
+      }
+      document.getElementById("biasText").innerText = message;
+    }
+
+    function updateEthics() {
+      const checked = document.querySelectorAll(".check-item input:checked").length;
+      const messages = [
+        "0개 항목을 확인했습니다. 데이터 활용 전에는 기술적 가능성뿐 아니라 사회적 영향을 함께 고려해야 합니다.",
+        "1개 항목을 확인했습니다. 데이터 활용의 출발점은 좋지만, 개인정보와 편향 검토가 더 필요합니다.",
+        "2개 항목을 확인했습니다. 데이터 출처와 민감성 검토가 진행되고 있으나, 공정성과 설명 가능성도 함께 고려해야 합니다.",
+        "3개 항목을 확인했습니다. 기술적 활용과 윤리적 검토가 비교적 균형 있게 진행되고 있습니다.",
+        "4개 항목을 모두 확인했습니다. 데이터 활용 전 기본적인 윤리 점검이 잘 이루어진 상태입니다."
+      ];
+      document.getElementById("ethicsText").innerText = messages[checked];
+    }
+
+    function newIdea() {
+      const ideas = [
+        "생명공학 데이터에서 노이즈가 많은 경우 AI 결과 해석은 어떻게 달라질까?",
+        "분자 구조 데이터를 그래프 형태로 표현하면 어떤 정보가 더 잘 보존될까?",
+        "의료 AI에서 높은 정확도보다 설명 가능성이 더 중요한 상황은 언제일까?",
+        "환경 센서 데이터의 측정 오류를 줄이기 위해 어떤 전처리 과정이 필요할까?",
+        "데이터 편향을 줄이기 위해 수집 단계에서 어떤 기준을 세워야 할까?",
+        "AI 결과를 과학 탐구 보고서에서 어떻게 책임 있게 제시할 수 있을까?"
+      ];
+      const random = ideas[Math.floor(Math.random() * ideas.length)];
+      document.getElementById("ideaText").innerText = random;
+    }
+  </script>
 </body>
 </html>
